@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://cb1phslyutj42"]
+
+[ext_resource type="Texture2D" uid="uid://cmtw0uw44e7i4" path="res://assets/sprites/player1.png" id="1_8708u"]
+[ext_resource type="Script" path="res://ship.gd" id="1_wtf0p"]
+[ext_resource type="Texture2D" uid="uid://i716gn4nnh1q" path="res://assets/sprites/player2.png" id="2_vbcbk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_krad6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8708u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_vbcbk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bkao8"]
+radius = 7.0
+
+[node name="Ship" type="Area2D" groups=["ship"]]
+script = ExtResource("1_wtf0p")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_krad6")
+autoplay = "default"
+frame_progress = 0.905672
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bkao8")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdv05s1w7nv54"]
+
+[ext_resource type="Texture2D" uid="uid://b1jjuuwwr80y2" path="res://assets/sprites/asteroid1.png" id="1_axaa0"]
+[ext_resource type="Script" path="res://astroid.gd" id="1_lhdsm"]
+[ext_resource type="Texture2D" uid="uid://ddkqm21djkxil" path="res://assets/sprites/asteroid2.png" id="2_rl6sv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yvqps"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_axaa0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_rl6sv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o1kyr"]
+radius = 8.0
+
+[node name="Astroid" type="Area2D" groups=["astroids"]]
+script = ExtResource("1_lhdsm")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_yvqps")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_o1kyr")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(4.17233e-07, 4.17233e-07)
+scale = Vector2(0.8, 0.8)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]
