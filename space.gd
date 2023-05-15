@@ -39,7 +39,6 @@ func _on_spawn_timer_timeout():
 	$SpawnTimer.wait_time = randf_range(0.5, 3)
 
 func _on_explosion(object_position):
-	print("explosion at ", object_position)
 	var explosion = explosion_scene.instantiate()
 	explosion.position = object_position
 	add_child(explosion)
